@@ -1,0 +1,11 @@
+{
+  "app_name": "Endgame Demo",
+  "is_debug": false,
+  "gui": {
+    "window": {
+      "width": 640,
+      "height": 480,
+      "is_fullscreen": false
+    }
+  }
+}

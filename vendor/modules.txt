@@ -1,0 +1,7 @@
+# github.com/google/uuid v1.3.0
+## explicit
+github.com/google/uuid
+# github.com/veandco/go-sdl2 v0.4.27
+## explicit; go 1.15
+github.com/veandco/go-sdl2/sdl
+github.com/veandco/go-sdl2/ttf
