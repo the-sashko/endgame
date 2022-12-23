@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const TypeDefault = "app"
+const TypeDefault = "info"
 const TypeDebug = "debug"
 const TypeError = "error"
 

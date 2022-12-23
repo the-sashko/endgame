@@ -2,9 +2,7 @@ package main
 
 import (
 	"endgame/src/actions"
-	"endgame/src/core/dispatcher"
 	"endgame/src/display"
-	"endgame/src/events"
 	"endgame/src/handlers"
 	"endgame/src/input"
 	"endgame/src/utils/fps"
@@ -15,10 +13,14 @@ import (
 func main() {
 	initApp()
 
-	actions.GetStartAppAction().Fire(nil)
+	appSettings := settings.GetSettings()
+	appSettings.SetDebug(true)
 
-	handlerTest := handlers.NewTestHandler()
-	handlerTest.Subscribe("e_click")
+	actions.GetGlobalAppStartAction().Fire(nil)
+
+	//handlerTest := handlers.NewTestHandler()
+	//handlerTest.Subscribe("e_click")
+	handlers.NewClickHandler().Subscribe("global_event_click")
 
 	display.Init(
 		"EndGame Demo",
@@ -56,28 +58,4 @@ func main() {
 func loop() {
 	input.DoHandleInputs()
 	display.GetInstance().Render()
-}
-
-func initApp() {
-	appSettings := settings.GetSettings()
-	appSettings.SetDebug(true)
-
-	_ = dispatcher.GetDispatcher()
-
-	_ = handlers.GetStartAppHandler()
-	_ = handlers.GetQuitAppHandler()
-
-	startAppAction := actions.GetStartAppAction()
-	quitAppAction := actions.GetQuitAppAction()
-
-	startAppEvent := events.GetStartAppEvent()
-	quitAppEvent := events.GetQuitAppEvent()
-
-	startAppAction.AddEvent(startAppEvent)
-	quitAppAction.AddEvent(quitAppEvent)
-
-	handlerClick := handlers.NewClickHandler()
-	handlerClick.Subscribe("e_click")
-
-	input.Init()
 }

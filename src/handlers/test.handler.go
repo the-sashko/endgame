@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	coreHandler "endgame/src/core/handler"
-	"endgame/src/core/interfaces"
 	"endgame/src/display"
 	"math/rand"
 )
@@ -35,6 +33,6 @@ func (handlerObject *testHandler) DoHandle(values map[string]interface{}) {
 	}
 }
 
-func NewTestHandler() interfaces.ICoreHandler {
-	return coreHandler.NewHandler("test", new(testHandler))
-}
+//func NewTestHandler() interfaces.ICoreHandler {
+//	return coreHandler.NewHandler("test", new(testHandler))
+//}

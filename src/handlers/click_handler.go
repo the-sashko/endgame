@@ -6,9 +6,9 @@ import (
 	"endgame/src/display"
 )
 
-type clickHandler struct{}
+type globalClickHandler struct{}
 
-func (handlerObject *clickHandler) DoHandle(values map[string]interface{}) {
+func (handlerObject *globalClickHandler) DoHandle(values map[string]interface{}) {
 	x := values["x"].(uint16)
 	y := values["y"].(uint16)
 	display.GetInstance().DrawPixelToDefaultBuffer(x-1, y-1, 0xffffff, 0, 0,
@@ -32,5 +32,5 @@ func (handlerObject *clickHandler) DoHandle(values map[string]interface{}) {
 }
 
 func NewClickHandler() interfaces.ICoreHandler {
-	return coreHandler.NewHandler("click", new(clickHandler))
+	return coreHandler.NewHandler("click", new(globalClickHandler))
 }

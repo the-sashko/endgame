@@ -33,7 +33,7 @@ func initSyscallHandling() {
 
 	go func() {
 		<-osSignalChannel
-		actions.GetQuitAppAction().Fire(nil)
+		actions.GetGlobalAppQuitAction().Fire(nil)
 	}()
 }
 
@@ -42,17 +42,21 @@ func doHandleInputsSdl() {
 		PollEvent() {
 		switch sdlEvent.(type) {
 		case *sdl.QuitEvent:
-			actions.GetQuitAppAction().Fire(nil)
+			actions.GetGlobalAppQuitAction().Fire(nil)
 			break
 		case *sdl.MouseButtonEvent:
-
 			values := make(map[string]interface{})
+
 			values["x"] = uint16(sdlEvent.(*sdl.MouseButtonEvent).X)
 			values["y"] = uint16(sdlEvent.(*sdl.MouseButtonEvent).Y)
+			values["button"] = sdlEvent.(*sdl.MouseButtonEvent).Button
+			values["state"] = sdlEvent.(*sdl.MouseButtonEvent).State
+			values["clicks"] = sdlEvent.(*sdl.MouseButtonEvent).Clicks
+			values["type"] = sdlEvent.(*sdl.MouseButtonEvent).Type
 
-			eventClick := event.NewEvent("e_click")
+			eventClick := event.NewEvent("global_event_click")
 
-			actionClick := action.NewAction("a_click", nil)
+			actionClick := action.NewAction("global_action_click", nil)
 			actionClick.AddEvent(eventClick)
 
 			actionClick.Fire(values)
