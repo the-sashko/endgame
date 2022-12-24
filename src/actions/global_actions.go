@@ -9,4 +9,5 @@ const (
 	GlobalMouseButtonRelease = "global_action_mouse_button_release"
 	GlobalMouseButtonClick   = "global_action_mouse_button_click"
 	GlobalMouseMove          = "global_action_mouse_move"
+	GlobalMouseScroll        = "global_action_mouse_scroll"
 )

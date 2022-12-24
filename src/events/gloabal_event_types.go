@@ -9,4 +9,5 @@ const (
 	GlobalMouseButtonReleaseType = "global_event_mouse_button_release"
 	GlobalMouseButtonClickType   = "global_event_mouse_button_click"
 	GlobalMouseMoveType          = "global_event_mouse_move"
+	GlobalMouseScrollType        = "global_event_mouse_scroll"
 )

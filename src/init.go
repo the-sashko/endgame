@@ -55,6 +55,14 @@ func initGlobalActionsAndEvents() {
 	actions.GetGlobalMouseButtonClickAction().AddEvent(
 		events.GetGlobalMouseButtonClickEvent(),
 	)
+
+	actions.GetGlobalMouseMoveAction().AddEvent(
+		events.GetGlobalMouseMoveEvent(),
+	)
+
+	actions.GetGlobalMouseScrollAction().AddEvent(
+		events.GetGlobalMouseScrollEvent(),
+	)
 }
 
 func initGlobalHandlers() {
