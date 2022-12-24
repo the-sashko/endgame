@@ -3,6 +3,7 @@ package main
 import (
 	"endgame/src/actions"
 	"endgame/src/display"
+	"endgame/src/events"
 	"endgame/src/handlers"
 	"endgame/src/input"
 	"endgame/src/utils/fps"
@@ -13,21 +14,9 @@ import (
 func main() {
 	initApp()
 
-	appSettings := settings.GetSettings()
-	appSettings.SetDebug(true)
-
 	actions.GetGlobalAppStartAction().Fire(nil)
 
-	//handlerTest := handlers.NewTestHandler()
-	//handlerTest.Subscribe("e_click")
-	handlers.NewClickHandler().Subscribe("global_event_click")
-
-	display.Init(
-		"EndGame Demo",
-		640,
-		480,
-		false,
-	)
+	handlers.GetTestClickHandler().Subscribe(events.GlobalMouseButtonClickType)
 
 	displayObject := display.GetInstance()
 
