@@ -4,19 +4,20 @@ import (
 	"endgame/src/actions"
 	"endgame/src/core/input/button"
 	"endgame/src/core/input/keyboard"
+	"endgame/src/core/values_object"
 	"github.com/veandco/go-sdl2/sdl"
 	"strings"
 )
 
 func doHandleKeyboardSdlEvent(sdlEvent sdl.Event) {
-	values := make(map[string]interface{})
+	values := values_object.NewValuesObject(make(map[string]interface{}))
 
 	buttonName := retrieveButtonNameFromSdlEvent(sdlEvent)
 	buttonState := retrieveKeyboardButtonStateFromSdlEvent(sdlEvent)
 
 	keyboard.GetKeyboard().GetButton(buttonName).SetState(buttonState)
 
-	values["button_name"] = buttonName
+	values.Set("button_name", buttonName)
 
 	if buttonState == button.StatePressed {
 		actions.GetGlobalKeyboardKeyPressAction().Fire(values)

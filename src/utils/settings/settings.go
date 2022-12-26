@@ -1,26 +1,31 @@
 package settings
 
+import (
+	"endgame/src/core/interfaces"
+	"endgame/src/core/values_object"
+)
+
 var settingsInstance *settingsType
 
 type settingsType struct {
-	isDebug bool
+	values interfaces.ICoreValuesObject
 }
 
 func (settings *settingsType) IsDebug() bool {
-	return settings.isDebug
+	return settings.values.Get("is_debug").(bool)
 }
 
 func (settings *settingsType) SetDebug(isDebug bool) {
-	settings.isDebug = isDebug
+	settings.values.Set("is_debug", isDebug)
 }
 
 func newSettings() *settingsType {
 	return &settingsType{
-		isDebug: false,
+		values: values_object.NewValuesObject(make(map[string]interface{})),
 	}
 }
 
-func GetSettings() *settingsType {
+func GetSettings() ISettings {
 	if settingsInstance == nil {
 		settingsInstance = newSettings()
 	}

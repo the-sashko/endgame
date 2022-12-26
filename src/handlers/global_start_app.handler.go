@@ -10,7 +10,9 @@ var globalAppStartHandlerInstance interfaces.ICoreHandler
 
 type globalAppStartHandler struct{}
 
-func (handlerObject *globalAppStartHandler) DoHandle(values map[string]interface{}) {
+func (handlerObject *globalAppStartHandler) DoHandle(
+	values interfaces.ICoreValuesObject,
+) {
 	logger.LogMessage("Started", logger.TypeDefault)
 }
 

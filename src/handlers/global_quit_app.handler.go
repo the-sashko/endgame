@@ -11,7 +11,9 @@ var globalAppQuitHandlerInstance interfaces.ICoreHandler
 
 type globalAppQuitHandler struct{}
 
-func (handlerObject *globalAppQuitHandler) DoHandle(values map[string]interface{}) {
+func (handlerObject *globalAppQuitHandler) DoHandle(
+	values interfaces.ICoreValuesObject,
+) {
 	logger.LogMessage("Quit", logger.TypeDefault)
 	os.Exit(0)
 }

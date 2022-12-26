@@ -4,9 +4,9 @@ import (
 	"endgame/src/actions"
 	"endgame/src/display"
 	"endgame/src/events"
+	"endgame/src/golbal_state"
 	"endgame/src/handlers"
 	"endgame/src/input"
-	"endgame/src/utils/settings"
 )
 
 func initApp() {
@@ -19,8 +19,7 @@ func initApp() {
 }
 
 func initSettings() {
-	appSettings := settings.GetSettings()
-	appSettings.SetDebug(true)
+	golbal_state.GetGlobalState().GetSettings().SetDebug(true)
 }
 
 func initGlobalActionsAndEvents() {

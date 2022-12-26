@@ -21,7 +21,7 @@ func (event *coreEvent) GetTypeName() string {
 	return event.typeName
 }
 
-func (event *coreEvent) Fire(values map[string]interface{}) {
+func (event *coreEvent) Fire(values interfaces.ICoreValuesObject) {
 	debugMessage := fmt.Sprintf("Fired Event With %s Event Type", event.GetTypeName())
 	logger.LogDebug(debugMessage)
 

@@ -21,7 +21,7 @@ func (action *coreAction) GetName() string {
 	return action.name
 }
 
-func (action *coreAction) Fire(values map[string]interface{}) {
+func (action *coreAction) Fire(values interfaces.ICoreValuesObject) {
 	debugMessage := fmt.Sprintf("Fired %s Action", action.GetName())
 	logger.LogDebug(debugMessage)
 

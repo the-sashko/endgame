@@ -62,7 +62,10 @@ func (dispatcher *coreDispatcher) Unsubscribe(eventType string, handler interfac
 	delete(dispatcher.subscriptions[eventType], handler.GetReference())
 }
 
-func (dispatcher *coreDispatcher) Dispatch(eventType string, values map[string]interface{}) {
+func (dispatcher *coreDispatcher) Dispatch(
+	eventType string,
+	values interfaces.ICoreValuesObject,
+) {
 	debugMessage := fmt.Sprintf("Dispatched %s Event Type", eventType)
 	logger.LogDebug(debugMessage)
 

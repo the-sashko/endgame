@@ -22,7 +22,7 @@ func (handler *coreHandler) GetName() string {
 	return handler.name
 }
 
-func (handler *coreHandler) DoHandle(values map[string]interface{}) {
+func (handler *coreHandler) DoHandle(values interfaces.ICoreValuesObject) {
 	debugMessage := fmt.Sprintf("%s Handler Handled Action Event Data", handler.GetName())
 	logger.LogDebug(debugMessage)
 

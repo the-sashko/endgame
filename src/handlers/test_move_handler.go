@@ -11,7 +11,9 @@ var testMoveHandlerInstance interfaces.ICoreHandler
 
 type testMoveHandler struct{}
 
-func (handlerObject *testMoveHandler) DoHandle(values map[string]interface{}) {
+func (handlerObject *testMoveHandler) DoHandle(
+	values interfaces.ICoreValuesObject,
+) {
 	x := mouse.GetMouse().GetX()
 	y := mouse.GetMouse().GetY()
 

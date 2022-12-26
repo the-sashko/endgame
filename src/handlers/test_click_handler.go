@@ -11,7 +11,9 @@ var testClickHandlerInstance interfaces.ICoreHandler
 
 type testClickHandler struct{}
 
-func (handlerObject *testClickHandler) DoHandle(values map[string]interface{}) {
+func (handlerObject *testClickHandler) DoHandle(
+	values interfaces.ICoreValuesObject,
+) {
 	x := mouse.GetMouse().GetX()
 	y := mouse.GetMouse().GetY()
 

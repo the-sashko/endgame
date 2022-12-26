@@ -4,13 +4,14 @@ import (
 	"endgame/src/actions"
 	"endgame/src/core/input/button"
 	"endgame/src/core/input/mouse"
+	"endgame/src/core/values_object"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
 func doHandleMouseButtonSdlEvent(sdlEvent sdl.Event) {
 	mouseObject := mouse.GetMouse()
 
-	values := make(map[string]interface{})
+	values := values_object.NewValuesObject(make(map[string]interface{}))
 
 	mouseObject.SetX(uint16(sdlEvent.(*sdl.MouseButtonEvent).X))
 	mouseObject.SetY(uint16(sdlEvent.(*sdl.MouseButtonEvent).Y))
@@ -41,11 +42,11 @@ func doHandleMouseButtonSdlEvent(sdlEvent sdl.Event) {
 		break
 	}
 
-	values["mouse_button_name"] = mouseButtonName
-	values["mouse_button_state"] = mouseButtonState
+	values.Set("mouse_button_name", mouseButtonName)
+	values.Set("mouse_button_state", mouseButtonState)
 
 	if sdlEvent.(*sdl.MouseButtonEvent).Clicks > 0 {
-		values["clicks"] = sdlEvent.(*sdl.MouseButtonEvent).Clicks
+		values.Set("clicks", sdlEvent.(*sdl.MouseButtonEvent).Clicks)
 		actions.GetGlobalMouseButtonClickAction().Fire(values)
 
 		return
@@ -91,7 +92,7 @@ func doHandleMouseMotionSdlEvent(sdlEvent sdl.Event) {
 }
 
 func doHandleMouseWheelSdlEvent(sdlEvent sdl.Event) {
-	values := make(map[string]interface{})
+	values := values_object.NewValuesObject(make(map[string]interface{}))
 
 	x := sdlEvent.(*sdl.MouseWheelEvent).X
 	y := sdlEvent.(*sdl.MouseWheelEvent).Y
@@ -106,15 +107,15 @@ func doHandleMouseWheelSdlEvent(sdlEvent sdl.Event) {
 		preciseY = -preciseY
 	}
 
-	values["x"] = x
-	values["y"] = y
+	values.Set("x", x)
+	values.Set("y", y)
 
 	precise := make(map[string]float32)
 
 	precise["x"] = preciseX
 	precise["y"] = preciseY
 
-	values["precise"] = precise
+	values.Set("precise", precise)
 
 	actions.GetGlobalMouseScrollAction().Fire(values)
 }
