@@ -4,6 +4,7 @@ import (
 	"endgame/src/core/interfaces"
 	_map "endgame/src/core/map"
 	"endgame/src/utils/logger"
+	"errors"
 	"fmt"
 )
 
@@ -29,11 +30,20 @@ func (displayMapObject *displayMap) GetLayer(
 	return displayMapObject.coreMap.GetLayer(layerName)
 }
 
+func (displayMapObject *displayMap) GetDefaultLayer() interfaces.ICoreMapLayer {
+	return displayMapObject.coreMap.GetLayer(defaultMapLayer)
+}
+
 func (displayMapObject *displayMap) SetLayer(layerName string) {
 	displayMapObject.coreMap.SetLayer(layerName)
 }
 
 func (displayMapObject *displayMap) DeleteLayer(layerName string) {
+	if layerName == defaultMapLayer {
+		err := errors.New("cannot delete default map layer")
+		doError(err)
+	}
+
 	displayMapObject.coreMap.DeleteLayer(layerName)
 }
 
@@ -51,6 +61,13 @@ func (displayMapObject *displayMap) GetObject(
 	return object.(IDisplayObject)
 }
 
+func (displayMapObject *displayMap) GetObjectFromDefaultLayer(
+	x uint16,
+	y uint16,
+) IDisplayObject {
+	return displayMapObject.GetObject(x, y, defaultMapLayer)
+}
+
 func (displayMapObject *displayMap) SetObject(
 	object IDisplayObject,
 	x uint16,
@@ -60,12 +77,27 @@ func (displayMapObject *displayMap) SetObject(
 	displayMapObject.coreMap.SetObject(object, x, y, layerName)
 }
 
+func (displayMapObject *displayMap) SetObjectToDefaultLayer(
+	object IDisplayObject,
+	x uint16,
+	y uint16,
+) {
+	displayMapObject.SetObject(object, x, y, defaultMapLayer)
+}
+
 func (displayMapObject *displayMap) DeleteObject(
 	x uint16,
 	y uint16,
 	layerName string,
 ) {
 	displayMapObject.coreMap.DeleteObject(x, y, layerName)
+}
+
+func (displayMapObject *displayMap) DeleteObjectFromDefaultLayer(
+	x uint16,
+	y uint16,
+) {
+	displayMapObject.DeleteObject(x, y, defaultMapLayer)
 }
 
 func (displayMapObject *displayMap) GetObjectsForArea(
@@ -82,11 +114,15 @@ func (displayMapObject *displayMap) GetObjectsForArea(
 	)
 }
 
-func newDisplayMap(name string) IDisplayMap {
+func NewDisplayMap(name string) IDisplayMap {
 	debugMessage := fmt.Sprintf("Created Display Map %s", name)
 	logger.LogDebug(debugMessage)
 
-	return &displayMap{
+	displayMap := &displayMap{
 		coreMap: _map.NewMap(name),
 	}
+
+	displayMap.SetLayer(defaultMapLayer)
+
+	return displayMap
 }

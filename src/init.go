@@ -13,7 +13,9 @@ func initApp() {
 	initSettings()
 	initGlobalActionsAndEvents()
 	initGlobalHandlers()
-	iniDisplay()
+	initDisplay()
+	initMaps()
+	initScene()
 
 	input.Init()
 }
@@ -69,11 +71,22 @@ func initGlobalHandlers() {
 	handlers.GetGlobalAppQuitHandler().Subscribe(events.GlobalAppQuitType)
 }
 
-func iniDisplay() {
+func initDisplay() {
 	display.Init(
-		"EndGame Demo",
-		640,
-		480,
-		false,
+		golbal_state.GetGlobalState().GetSettings().GetAppName(),
+		golbal_state.GetGlobalState().GetSettings().GetScreenResolution().GetWidth(),
+		golbal_state.GetGlobalState().GetSettings().GetScreenResolution().GetHeight(),
+		golbal_state.GetGlobalState().GetSettings().GetScreenResolution().IsFullScreen(),
 	)
+}
+
+func initMaps() {
+	defMap := display.NewDisplayMap("default")
+	golbal_state.GetGlobalState().SetMap("default", defMap)
+}
+
+func initScene() {
+	scene := display.GetDisplayScene()
+	scene.SetX(0)
+	scene.SetY(0)
 }

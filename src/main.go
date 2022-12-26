@@ -6,8 +6,8 @@ import (
 	"endgame/src/events"
 	"endgame/src/handlers"
 	"endgame/src/input"
+	"endgame/src/settings"
 	"endgame/src/utils/fps"
-	"endgame/src/utils/settings"
 	"fmt"
 )
 
@@ -23,11 +23,11 @@ func main() {
 
 	defer displayObject.Quit()
 
-	testImage := display.GetBitmapImage("test", "../res/test.bmp")
+	//testImage := display.GetBitmapImage("test", "../res/test.bmp")
 
-	displayObject.DrawBitmapImageToDefaultBuffer(testImage, 20, 20)
+	//displayObject.DrawBitmapImageToDefaultBuffer(testImage, 20, 20)
 
-	_ = displayObject.AddTextWithDefaultStyle("Hello word!", 20, 20)
+	//_ = displayObject.AddTextWithDefaultStyle("Hello word!", 20, 20)
 
 	for {
 		if settings.GetSettings().IsDebug() {

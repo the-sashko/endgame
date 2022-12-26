@@ -8,13 +8,16 @@ import (
 	"github.com/veandco/go-sdl2/ttf"
 )
 
-const defaultBufferLayer = 0
-const defaultTextFont = "default"
-const defaultTextSize = 14
-const defaultTextColorRed = 0xff
-const defaultTextColorBlue = 0xff
-const defaultTextColorGreen = 0xff
-const defaultTextColorAlpha = 0xff
+const (
+	defaultBufferLayer    = 0
+	defaultMapLayer       = "default"
+	defaultTextFont       = "default"
+	defaultTextSize       = 14
+	defaultTextColorRed   = 0xff
+	defaultTextColorBlue  = 0xff
+	defaultTextColorGreen = 0xff
+	defaultTextColorAlpha = 0xff
+)
 
 var displayInstance IDisplay
 

@@ -2,7 +2,7 @@ package golbal_state
 
 import (
 	"endgame/src/display"
-	"endgame/src/utils/settings"
+	"endgame/src/settings"
 )
 
 type IGlobalState interface {

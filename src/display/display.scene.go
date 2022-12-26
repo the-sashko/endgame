@@ -42,9 +42,9 @@ func (scene *displayScene) SetY(y uint16) {
 
 func (scene *displayScene) SetDisplayBufferLayer(
 	mapLayerName string,
-	displayBufferLayer byte,
+	bufferLayer byte,
 ) {
-	scene.displayBufferLayers[mapLayerName] = displayBufferLayer
+	scene.displayBufferLayers[mapLayerName] = bufferLayer
 }
 
 func (scene *displayScene) GetPixels() map[byte]map[uint32]IColor {
@@ -58,6 +58,11 @@ func (scene *displayScene) SetObjects(
 }
 
 func (scene *displayScene) DeleteDisplayBufferLayer(mapLayerName string) {
+	if mapLayerName == defaultMapLayer {
+		err := errors.New("cannot delete default map layer")
+		doError(err)
+	}
+
 	delete(scene.displayBufferLayers, mapLayerName)
 }
 
@@ -106,6 +111,11 @@ func initDisplayScene(width uint16, height uint16) {
 	_map.InitCoreScene(width, height)
 
 	displaySceneInstance = newDisplayScene()
+
+	displaySceneInstance.SetDisplayBufferLayer(
+		defaultMapLayer,
+		defaultBufferLayer,
+	)
 }
 
 func newDisplayScene() IDisplayScene {

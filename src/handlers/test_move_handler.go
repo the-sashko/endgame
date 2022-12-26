@@ -2,6 +2,7 @@ package handlers
 
 import (
 	coreHandler "endgame/src/core/handler"
+	"endgame/src/core/input/button"
 	"endgame/src/core/input/mouse"
 	"endgame/src/core/interfaces"
 	"endgame/src/display"
@@ -14,6 +15,10 @@ type testMoveHandler struct{}
 func (handlerObject *testMoveHandler) DoHandle(
 	values interfaces.ICoreValuesObject,
 ) {
+	if mouse.GetMouse().GetLeftButton().GetState() != button.StatePressed {
+		return
+	}
+
 	x := mouse.GetMouse().GetX()
 	y := mouse.GetMouse().GetY()
 

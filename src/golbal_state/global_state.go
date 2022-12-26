@@ -4,7 +4,7 @@ import (
 	"endgame/src/core/interfaces"
 	"endgame/src/core/values_object"
 	"endgame/src/display"
-	"endgame/src/utils/settings"
+	settings2 "endgame/src/settings"
 	"fmt"
 )
 
@@ -12,7 +12,7 @@ var globalStateInstance IGlobalState
 
 type globalState struct {
 	valuesObject   interfaces.ICoreValuesObject
-	settingsObject settings.ISettings
+	settingsObject settings2.ISettings
 }
 
 func (globalStateObject *globalState) Get(name string) interface{} {
@@ -64,7 +64,7 @@ func (globalStateObject *globalState) retrieveMapValueName(
 	return fmt.Sprintf("%s_display_map", mapName)
 }
 
-func (globalStateObject *globalState) GetSettings() settings.ISettings {
+func (globalStateObject *globalState) GetSettings() settings2.ISettings {
 	return globalStateObject.settingsObject
 }
 
@@ -73,7 +73,7 @@ func newGlobalState() IGlobalState {
 		valuesObject: values_object.NewValuesObject(
 			make(map[string]interface{}),
 		),
-		settingsObject: settings.GetSettings(),
+		settingsObject: settings2.GetSettings(),
 	}
 }
 

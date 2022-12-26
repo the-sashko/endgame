@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"endgame/src/utils/settings"
+	"endgame/src/settings"
 	"fmt"
 	"os"
 	"strconv"
