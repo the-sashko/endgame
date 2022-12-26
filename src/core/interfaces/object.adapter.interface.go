@@ -1,9 +1,6 @@
 package interfaces
 
-type ICoreObject interface {
-	GetReference() string
-	GetName() string
-	GetShape() map[uint32]bool
+type ICoreObjectAdapter interface {
 	DoHandleCollision(collidedObject ICoreObject)
 	DoHandleMouseHover()
 	DoHandleMouseButtonPress(mouseButton ICoreButton)

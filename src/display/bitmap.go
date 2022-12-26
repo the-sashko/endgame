@@ -1,6 +1,7 @@
 package display
 
 import (
+	"endgame/src/utils/map_index"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -20,12 +21,11 @@ func (bitmapImageObject *bitmapImage) loadFromFile(filePath string) {
 		for y := uint16(0); y < uint16(bmpSurface.H); y++ {
 			red, green, blue, alpha := bmpSurface.At(int(x), int(y)).RGBA()
 
-			index := uint32(x)
-			index = (index << 16) | uint32(y)
+			index := map_index.GetIndex(x, y)
 
-			color := NewColor(red, green, blue, alpha)
+			colorObject := NewColor(red, green, blue, alpha)
 
-			bitmapImageObject.pixels[index] = color
+			bitmapImageObject.pixels[index] = colorObject
 		}
 	}
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -67,6 +68,8 @@ func LogMessage(text string, logType string) {
 		}
 	}
 
+	text = fmt.Sprintf("[%s] %s", strings.ToUpper(logType), text)
+
 	print(text)
 }
 
@@ -74,8 +77,6 @@ func LogDebug(debugMessage string) {
 	if !settings.GetSettings().IsDebug() {
 		return
 	}
-
-	debugMessage = fmt.Sprintf("[DEBUG] %s", debugMessage)
 
 	LogMessage(debugMessage, TypeDebug)
 }

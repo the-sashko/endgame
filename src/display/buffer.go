@@ -1,5 +1,7 @@
 package display
 
+import "endgame/src/utils/map_index"
+
 type buffer struct {
 	pixels        map[uint16]map[uint16]IPixel
 	changedPixels map[uint32]IPixel
@@ -38,8 +40,7 @@ func (bufferObject *buffer) GetChangedPixels() map[uint32]IPixel {
 }
 
 func (bufferObject *buffer) SetPixelChanged(x uint16, y uint16) {
-	index := uint32(x)
-	index = (index << 16) | uint32(y)
+	index := map_index.GetIndex(x, y)
 
 	pixelObject := bufferObject.GetPixel(x, y)
 
@@ -58,8 +59,7 @@ func (bufferObject *buffer) SetPixelChanged(x uint16, y uint16) {
 }
 
 func (bufferObject *buffer) RemovePixelFromChanged(x uint16, y uint16) {
-	index := uint32(x)
-	index = (index << 16) | uint32(y)
+	index := map_index.GetIndex(x, y)
 
 	_, isExist := bufferObject.changedPixels[index]
 
@@ -96,8 +96,7 @@ func (bufferObject *buffer) setPixelToChanged(
 	y uint16,
 	pixel IPixel,
 ) {
-	index := uint32(x)
-	index = (index << 16) + uint32(y)
+	index := map_index.GetIndex(x, y)
 
 	bufferObject.changedPixels[index] = pixel
 }

@@ -17,6 +17,7 @@ func main() {
 	actions.GetGlobalAppStartAction().Fire(nil)
 
 	handlers.GetTestClickHandler().Subscribe(events.GlobalMouseButtonClickType)
+	handlers.GetTestMoveHandler().Subscribe(events.GlobalMouseMoveType)
 
 	displayObject := display.GetInstance()
 

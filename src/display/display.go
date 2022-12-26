@@ -2,6 +2,7 @@ package display
 
 import (
 	"endgame/src/utils/logger"
+	"endgame/src/utils/map_index"
 	"errors"
 	"github.com/veandco/go-sdl2/sdl"
 	"github.com/veandco/go-sdl2/ttf"
@@ -58,12 +59,11 @@ func (displayObject *display) DrawBitmapImage(
 	bufferLayer byte,
 ) {
 	for index, pixelColor := range bitmapImageObject.GetPixels() {
-		pixelX := index >> 16
-		pixelY := index - (pixelX << 16)
+		pixelX, pixelY := map_index.RetrieveXY(index)
 
 		displayObject.DrawPixel(
-			x+uint16(pixelX),
-			y+uint16(pixelY),
+			x+pixelX,
+			y+pixelY,
 			pixelColor.GetRed(),
 			pixelColor.GetGreen(),
 			pixelColor.GetBlue(),
@@ -287,10 +287,9 @@ func (displayObject *display) renderFromBuffers() {
 
 func (displayObject *display) renderFromBuffer(bufferObject IBuffer) {
 	for index, pixelObject := range bufferObject.GetChangedPixels() {
-		x := index >> 16
-		y := index - (x << 16)
+		x, y := map_index.RetrieveXY(index)
 
-		displayObject.renderPixel(bufferObject, pixelObject, uint16(x), uint16(y))
+		displayObject.renderPixel(bufferObject, pixelObject, x, y)
 	}
 }
 
@@ -397,6 +396,8 @@ func Init(
 	displayObject.init(title, width, height, isFullScreen)
 
 	displayInstance = displayObject
+
+	initDisplayScene(width, height)
 }
 
 func GetInstance() IDisplay {
