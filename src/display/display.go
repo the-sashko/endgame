@@ -327,17 +327,6 @@ func (displayObject *display) renderText(textObject IText) {
 		},
 	)
 
-	/*var xx uint16
-	  var yy uint16
-
-	  for xx = 0; xx < uint16(textSurface.W); xx++ {
-	  	for yy = 0; yy < uint16(textSurface.H); yy++ {
-	  		displayObject.DrawPixelToDefaultBuffer(xx+textObject.GetX(),
-	  			yy+textObject.GetY(), 255,
-	  			0, 0, 255)
-	  	}
-	  }*/
-
 	if err != nil {
 		doError(err)
 	}

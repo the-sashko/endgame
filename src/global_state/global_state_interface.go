@@ -1,4 +1,4 @@
-package golbal_state
+package global_state
 
 import (
 	"endgame/src/display"

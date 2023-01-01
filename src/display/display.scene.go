@@ -67,6 +67,8 @@ func (scene *displayScene) DeleteDisplayBufferLayer(mapLayerName string) {
 }
 
 func (scene *displayScene) DoFillPixels() {
+	scene.pixels = make(map[byte]map[uint32]IColor)
+
 	coreObjects := scene.getObjects()
 
 	for mapLayerName, displayBufferLayer := range scene.displayBufferLayers {
@@ -77,7 +79,7 @@ func (scene *displayScene) DoFillPixels() {
 
 			pixels := coreObject.(IDisplayObject).GetCurrentTexture()
 
-			for pixelIndex, pixel := range pixels {
+			for pixelIndex, pixelObject := range pixels {
 				objectX, objectY := map_index.RetrieveXY(objectIndex)
 				pixelX, pixelY := map_index.RetrieveXY(pixelIndex)
 
@@ -90,7 +92,13 @@ func (scene *displayScene) DoFillPixels() {
 
 				scenePixelIndex := map_index.GetIndex(pixelX, pixelY)
 
-				scene.pixels[displayBufferLayer][scenePixelIndex] = pixel
+				_, isExist := scene.pixels[displayBufferLayer]
+
+				if !isExist {
+					scene.pixels[displayBufferLayer] = make(map[uint32]IColor)
+				}
+
+				scene.pixels[displayBufferLayer][scenePixelIndex] = pixelObject
 			}
 		}
 	}

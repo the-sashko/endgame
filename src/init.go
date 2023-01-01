@@ -4,7 +4,7 @@ import (
 	"endgame/src/actions"
 	"endgame/src/display"
 	"endgame/src/events"
-	"endgame/src/golbal_state"
+	"endgame/src/global_state"
 	"endgame/src/handlers"
 	"endgame/src/input"
 )
@@ -21,7 +21,7 @@ func initApp() {
 }
 
 func initSettings() {
-	golbal_state.GetGlobalState().GetSettings().SetDebug(true)
+	global_state.GetGlobalState().GetSettings().SetDebug(true)
 }
 
 func initGlobalActionsAndEvents() {
@@ -73,16 +73,16 @@ func initGlobalHandlers() {
 
 func initDisplay() {
 	display.Init(
-		golbal_state.GetGlobalState().GetSettings().GetAppName(),
-		golbal_state.GetGlobalState().GetSettings().GetScreenResolution().GetWidth(),
-		golbal_state.GetGlobalState().GetSettings().GetScreenResolution().GetHeight(),
-		golbal_state.GetGlobalState().GetSettings().GetScreenResolution().IsFullScreen(),
+		global_state.GetGlobalState().GetSettings().GetAppName(),
+		global_state.GetGlobalState().GetSettings().GetScreenResolution().GetWidth(),
+		global_state.GetGlobalState().GetSettings().GetScreenResolution().GetHeight(),
+		global_state.GetGlobalState().GetSettings().GetScreenResolution().IsFullScreen(),
 	)
 }
 
 func initMaps() {
-	defMap := display.NewDisplayMap("default")
-	golbal_state.GetGlobalState().SetMap("default", defMap)
+	defaultMap := display.NewDisplayMap("default")
+	global_state.GetGlobalState().SetMap("default", defaultMap)
 }
 
 func initScene() {

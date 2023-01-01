@@ -17,23 +17,23 @@ func (handlerObject *testClickHandler) DoHandle(
 	x := mouse.GetMouse().GetX()
 	y := mouse.GetMouse().GetY()
 
-	display.GetInstance().DrawPixelToDefaultBuffer(x-1, y-1, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x-1, y-1, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x-1, y, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x-1, y, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x-1, y+1, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x-1, y+1, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x, y-1, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x, y-1, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x, y, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x, y, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x, y+1, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x, y+1, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x+1, y-1, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x+1, y-1, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x+1, y, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x+1, y, 0, 0xffffff, 0xffffff,
 		0xffffff)
-	display.GetInstance().DrawPixelToDefaultBuffer(x+1, y+1, 0xffffff, 0, 0,
+	display.GetInstance().DrawPixelToDefaultBuffer(x+1, y+1, 0, 0xffffff, 0xffffff,
 		0xffffff)
 }
 

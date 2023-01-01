@@ -49,11 +49,11 @@ func retrieveKeyboardButtonStateFromSdlEvent(sdlEvent sdl.Event) uint8 {
 
 	buttonState = button.StateUnknown
 
-	if sdlEvent.(*sdl.MouseButtonEvent).Type == sdl.MOUSEBUTTONDOWN {
+	if sdlEvent.(*sdl.KeyboardEvent).Type == sdl.KEYDOWN {
 		buttonState = button.StatePressed
 	}
 
-	if sdlEvent.(*sdl.MouseButtonEvent).Type == sdl.MOUSEBUTTONUP {
+	if sdlEvent.(*sdl.KeyboardEvent).Type == sdl.KEYUP {
 		buttonState = button.StateReleased
 	}
 

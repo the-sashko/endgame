@@ -86,7 +86,7 @@ func (object *displayObject) DoHandleMove(deltaX uint16, deltaY uint16) {
 func NewDisplayObject(
 	name string,
 	shape map[uint32]bool,
-	textureNames map[string]string,
+	texturePaths map[string]string,
 	adapter interfaces.ICoreObjectAdapter,
 ) IDisplayObject {
 	debugMessage := fmt.Sprintf("Created %s Display Object", name)
@@ -96,7 +96,7 @@ func NewDisplayObject(
 
 	textures := make(map[string]IBitmapImage)
 
-	for textureName, texturePath := range textureNames {
+	for textureName, texturePath := range texturePaths {
 		textures[textureName] = newBitmapImage(textureName, texturePath)
 	}
 
