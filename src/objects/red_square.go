@@ -11,6 +11,12 @@ const redSquareDefaultTexture = "../res/red_square.bmp"
 
 type redSquareObjectAdapter struct{}
 
+func (redSquareObjectAdapterInstance *redSquareObjectAdapter) Destroy() {
+	logger.LogDebug("Destroyed Red Square Object Adapter")
+
+	//todo
+}
+
 func (redSquareObjectAdapterInstance *redSquareObjectAdapter) DoHandleCollision(
 	collidedObject interfaces.ICoreObject,
 ) {
@@ -40,8 +46,8 @@ func (redSquareObjectAdapterInstance *redSquareObjectAdapter) DoHandleMouseButto
 }
 
 func (redSquareObjectAdapterInstance *redSquareObjectAdapter) DoHandleMove(
-	deltaX uint16,
-	deltaY uint16,
+	deltaX int32,
+	deltaY int32,
 ) {
 	//todo
 }
@@ -53,8 +59,8 @@ func NewRedSquareObject(
 
 	shape := make(map[uint32]bool)
 
-	for x := uint16(0); x < 16; x++ {
-		for y := uint16(0); y < 16; y++ {
+	for x := uint16(0); x < 164; x++ {
+		for y := uint16(0); y < 64; y++ {
 			shape[map_index.GetIndex(x, y)] = true
 		}
 	}

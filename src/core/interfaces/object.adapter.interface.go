@@ -1,10 +1,11 @@
 package interfaces
 
 type ICoreObjectAdapter interface {
+	Destroy()
 	DoHandleCollision(collidedObject ICoreObject)
 	DoHandleMouseHover()
 	DoHandleMouseButtonPress(mouseButton ICoreButton)
 	DoHandleMouseButtonRelease(mouseButton ICoreButton)
 	DoHandleMouseButtonClick(mouseButton ICoreButton)
-	DoHandleMove(deltaX uint16, deltaY uint16)
+	DoHandleMove(deltaX int32, deltaY int32)
 }

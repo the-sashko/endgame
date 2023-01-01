@@ -23,7 +23,7 @@ func (mapLayer *coreMapLayer) GetName() string {
 }
 
 func (mapLayer *coreMapLayer) GetObject(index uint32) interfaces.ICoreObject {
-	if !mapLayer.hasObject(index) {
+	if !mapLayer.HasObject(index) {
 		return nil
 	}
 
@@ -38,7 +38,7 @@ func (mapLayer *coreMapLayer) SetObject(
 }
 
 func (mapLayer *coreMapLayer) DeleteObject(index uint32) {
-	if !mapLayer.hasObject(index) {
+	if !mapLayer.HasObject(index) {
 		return
 	}
 
@@ -57,7 +57,7 @@ func (mapLayer *coreMapLayer) GetObjectsForArea(
 		for y := areaY; y < areaY+areaHeight; y++ {
 			index := map_index.GetIndex(x, y)
 
-			if !mapLayer.hasObject(index) {
+			if !mapLayer.HasObject(index) {
 				continue
 			}
 
@@ -68,7 +68,7 @@ func (mapLayer *coreMapLayer) GetObjectsForArea(
 	return objects
 }
 
-func (mapLayer *coreMapLayer) hasObject(index uint32) bool {
+func (mapLayer *coreMapLayer) HasObject(index uint32) bool {
 	_, isExist := mapLayer.objects[index]
 
 	return isExist

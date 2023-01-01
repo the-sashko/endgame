@@ -36,14 +36,31 @@ func main() {
 	x := uint16(5)
 	y := uint16(5)
 
-	global_state.GetGlobalState().GetMap("default").SetObjectToDefaultLayer(
-		objects.NewRedSquareObject("test"),
+	testObj := objects.NewRedSquareObject("test")
+
+	global_state.GetGlobalState().GetCurrentMap().SetObjectToDefaultLayer(
+		testObj,
 		x,
 		y,
 	)
 
-	global_state.GetGlobalState().Set("test_obj_x", x)
-	global_state.GetGlobalState().Set("test_obj_y", y)
+	global_state.GetGlobalState().SetObject(testObj)
+
+	y = y + 100
+
+	if !global_state.GetGlobalState().GetCurrentMap().HasObjectOnDefaultLayer(x, y) {
+		testObj2 := objects.NewRedSquareObject("test2")
+
+		global_state.GetGlobalState().GetCurrentMap().SetObjectToDefaultLayer(
+			testObj2,
+			x,
+			y,
+		)
+
+		global_state.GetGlobalState().SetObject(testObj2)
+	}
+
+	global_state.GetGlobalState().DeleteObject("test2")
 
 	for {
 		if settings.GetSettings().IsDebug() {
@@ -66,7 +83,7 @@ func loop() {
 
 	dso := display.GetDisplayScene()
 
-	mp := global_state.GetGlobalState().GetMap("default")
+	mp := global_state.GetGlobalState().GetCurrentMap()
 
 	objs := mp.GetObjectsForArea(dso.GetX(), dso.GetY(), dso.GetWidth(), dso.GetHeight())
 

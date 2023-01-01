@@ -16,4 +16,5 @@ type ICoreMap interface {
 		areaWidth uint16,
 		areaHeight uint16,
 	) map[string]map[uint32]ICoreObject
+	HasObject(x uint16, y uint16, layerName string) bool
 }

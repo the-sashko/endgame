@@ -69,6 +69,7 @@ func initGlobalActionsAndEvents() {
 func initGlobalHandlers() {
 	handlers.GetGlobalAppStartHandler().Subscribe(events.GlobalAppStartType)
 	handlers.GetGlobalAppQuitHandler().Subscribe(events.GlobalAppQuitType)
+	handlers.GetGlobalKeyboardKeyPressHandler().Subscribe(events.GlobalKeyboardKeyPressType)
 }
 
 func initDisplay() {
@@ -82,7 +83,8 @@ func initDisplay() {
 
 func initMaps() {
 	defaultMap := display.NewDisplayMap("default")
-	global_state.GetGlobalState().SetMap("default", defaultMap)
+	global_state.GetGlobalState().SetMap(defaultMap)
+	global_state.GetGlobalState().SetCurrentMapName("default")
 }
 
 func initScene() {

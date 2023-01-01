@@ -4,15 +4,15 @@ import (
 	"endgame/src/core/interfaces"
 	"endgame/src/core/values_object"
 	"endgame/src/display"
-	settings2 "endgame/src/settings"
-	"fmt"
+	settingsPackage "endgame/src/settings"
 )
+
+const defaultMapName = "default"
 
 var globalStateInstance IGlobalState
 
 type globalState struct {
-	valuesObject   interfaces.ICoreValuesObject
-	settingsObject settings2.ISettings
+	valuesObject interfaces.ICoreValuesObject
 }
 
 func (globalStateObject *globalState) Get(name string) interface{} {
@@ -31,50 +31,93 @@ func (globalStateObject *globalState) Delete(name string) {
 	globalStateObject.Has(name)
 }
 
+func (globalStateObject *globalState) GetCurrentMapName() string {
+	return globalStateObject.Get("current_map_name").(string)
+}
+
+func (globalStateObject *globalState) GetMaps() interfaces.ICoreValuesObject {
+	return globalStateObject.Get("maps").(interfaces.ICoreValuesObject)
+}
+
 func (globalStateObject *globalState) GetMap(
 	mapName string,
 ) display.IDisplayMap {
-	valueName := globalStateObject.retrieveMapValueName(mapName)
-
-	if !globalStateObject.Has(valueName) {
-		return nil
-	}
-
-	return globalStateObject.Get(valueName).(display.IDisplayMap)
+	return globalStateObject.GetMaps().Get(mapName).(display.IDisplayMap)
 }
 
-func (globalStateObject *globalState) SetMap(
-	mapName string,
-	displayMap display.IDisplayMap,
-) {
-	valueName := globalStateObject.retrieveMapValueName(mapName)
+func (globalStateObject *globalState) GetCurrentMap() display.IDisplayMap {
+	currentMapName := globalStateObject.GetCurrentMapName()
 
-	globalStateObject.Set(valueName, displayMap)
+	return globalStateObject.GetMap(currentMapName).(display.IDisplayMap)
+}
+
+func (globalStateObject *globalState) GetObjects() interfaces.ICoreValuesObject {
+	return globalStateObject.Get("objects").(interfaces.ICoreValuesObject)
+}
+
+func (globalStateObject *globalState) GetObject(
+	objectName string,
+) display.IDisplayObject {
+	return globalStateObject.GetObjects().Get(objectName).(display.IDisplayObject)
+}
+
+func (globalStateObject *globalState) SetCurrentMapName(mapName string) {
+	globalStateObject.Set("current_map_name", mapName)
+}
+
+func (globalStateObject *globalState) SetMap(displayMap display.IDisplayMap) {
+	globalStateObject.GetMaps().Set(displayMap.GetName(), displayMap)
+}
+
+func (globalStateObject *globalState) SetObject(
+	displayObject display.IDisplayObject,
+) {
+	globalStateObject.GetObjects().Set(displayObject.GetName(), displayObject)
 }
 
 func (globalStateObject *globalState) DeleteMap(mapName string) {
-	valueName := globalStateObject.retrieveMapValueName(mapName)
-
-	globalStateObject.Delete(valueName)
+	globalStateObject.GetMaps().Delete(mapName)
 }
 
-func (globalStateObject *globalState) retrieveMapValueName(
-	mapName string,
-) string {
-	return fmt.Sprintf("%s_display_map", mapName)
+func (globalStateObject *globalState) DeleteObject(objectName string) {
+	if !globalStateObject.GetObjects().Has(objectName) {
+		return
+	}
+
+	globalStateObject.GetObject(objectName).Destroy()
+
+	globalStateObject.GetObjects().Delete(objectName)
 }
 
-func (globalStateObject *globalState) GetSettings() settings2.ISettings {
-	return globalStateObject.settingsObject
+func (globalStateObject *globalState) GetSettings() settingsPackage.ISettings {
+	return globalStateObject.Get("settings").(settingsPackage.ISettings)
 }
 
 func newGlobalState() IGlobalState {
-	return &globalState{
+	globalStateObject := &globalState{
 		valuesObject: values_object.NewValuesObject(
 			make(map[string]interface{}),
 		),
-		settingsObject: settings2.GetSettings(),
 	}
+
+	globalStateObject.Set(
+		"maps",
+		values_object.NewValuesObject(
+			make(map[string]interface{}),
+		),
+	)
+
+	globalStateObject.Set(
+		"objects",
+		values_object.NewValuesObject(
+			make(map[string]interface{}),
+		),
+	)
+
+	globalStateObject.SetCurrentMapName(defaultMapName)
+	globalStateObject.Set("settings", settingsPackage.GetSettings())
+
+	return globalStateObject
 }
 
 func GetGlobalState() IGlobalState {

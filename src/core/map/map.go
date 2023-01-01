@@ -5,6 +5,7 @@ import (
 	"endgame/src/core/reference"
 	"endgame/src/utils/logger"
 	"endgame/src/utils/map_index"
+	"errors"
 	"fmt"
 )
 
@@ -74,6 +75,18 @@ func (mapObject *coreMap) SetObject(
 		mapObject.SetLayer(layerName)
 	}
 
+	if mapObject.HasObject(x, y, layerName) {
+		errorMessage := fmt.Sprintf(
+			"Can Not Set Object To Map. Object Already Exist. Map Name: %s Layer: %s X: %d Y:%d",
+			mapObject.name,
+			layerName,
+			x,
+			y,
+		)
+
+		doError(errors.New(errorMessage))
+	}
+
 	index := map_index.GetIndex(x, y)
 
 	mapObject.layers[layerName].SetObject(object, index)
@@ -107,6 +120,20 @@ func (mapObject *coreMap) GetObjectsForArea(
 	}
 
 	return objects
+}
+
+func (mapObject *coreMap) HasObject(
+	x uint16,
+	y uint16,
+	layerName string,
+) bool {
+	index := map_index.GetIndex(x, y)
+
+	if !mapObject.hasLayer(layerName) {
+		return false
+	}
+
+	return mapObject.layers[layerName].HasObject(index)
 }
 
 func (mapObject *coreMap) hasLayer(layerName string) bool {

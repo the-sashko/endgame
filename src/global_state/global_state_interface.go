@@ -1,8 +1,9 @@
 package global_state
 
 import (
+	"endgame/src/core/interfaces"
 	"endgame/src/display"
-	"endgame/src/settings"
+	settingsPackage "endgame/src/settings"
 )
 
 type IGlobalState interface {
@@ -10,8 +11,16 @@ type IGlobalState interface {
 	Set(name string, value interface{})
 	Has(name string) bool
 	Delete(name string)
+	GetCurrentMapName() string
+	GetMaps() interfaces.ICoreValuesObject
 	GetMap(mapName string) display.IDisplayMap
-	SetMap(mapName string, displayMap display.IDisplayMap)
+	GetCurrentMap() display.IDisplayMap
+	GetObjects() interfaces.ICoreValuesObject
+	GetObject(objectName string) display.IDisplayObject
+	SetCurrentMapName(mapName string)
+	SetMap(displayMap display.IDisplayMap)
+	SetObject(displayObject display.IDisplayObject)
 	DeleteMap(mapName string)
-	GetSettings() settings.ISettings
+	DeleteObject(objectName string)
+	GetSettings() settingsPackage.ISettings
 }

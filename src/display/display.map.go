@@ -74,6 +74,11 @@ func (displayMapObject *displayMap) SetObject(
 	y uint16,
 	layerName string,
 ) {
+	object.SetMap(displayMapObject)
+	object.SetMapLayerName(layerName)
+	object.SetX(x)
+	object.SetY(y)
+
 	displayMapObject.coreMap.SetObject(object, x, y, layerName)
 }
 
@@ -83,6 +88,21 @@ func (displayMapObject *displayMap) SetObjectToDefaultLayer(
 	y uint16,
 ) {
 	displayMapObject.SetObject(object, x, y, defaultMapLayer)
+}
+
+func (displayMapObject *displayMap) HasObject(
+	x uint16,
+	y uint16,
+	layerName string,
+) bool {
+	return displayMapObject.coreMap.HasObject(x, y, layerName)
+}
+
+func (displayMapObject *displayMap) HasObjectOnDefaultLayer(
+	x uint16,
+	y uint16,
+) bool {
+	return displayMapObject.HasObject(x, y, defaultMapLayer)
 }
 
 func (displayMapObject *displayMap) DeleteObject(

@@ -24,4 +24,6 @@ type IDisplayMap interface {
 		areaWidth uint16,
 		areaHeight uint16,
 	) map[string]map[uint32]interfaces.ICoreObject
+	HasObject(x uint16, y uint16, layerName string) bool
+	HasObjectOnDefaultLayer(x uint16, y uint16) bool
 }

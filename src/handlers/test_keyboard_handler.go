@@ -14,39 +14,32 @@ type testKeyboardHandler struct{}
 func (handlerObject *testKeyboardHandler) DoHandle(
 	values interfaces.ICoreValuesObject,
 ) {
+	deltaX := int32(0)
+	deltaY := int32(0)
+
 	buttonName := values.Get("button_name").(string)
-
-	x := global_state.GetGlobalState().Get("test_obj_x").(uint16)
-	y := global_state.GetGlobalState().Get("test_obj_y").(uint16)
-
-	m := global_state.GetGlobalState().GetMap("default")
-
-	obj := m.GetObjectFromDefaultLayer(x, y)
 
 	switch {
 	case buttonName == "w" || buttonName == "up":
-		m.DeleteObjectFromDefaultLayer(x, y)
-		y = y - 5
+		deltaY = deltaY - 5
 		break
 	case buttonName == "a" || buttonName == "left":
-		m.DeleteObjectFromDefaultLayer(x, y)
-		x = x - 5
+		deltaX = deltaX - 5
 		break
 	case buttonName == "s" || buttonName == "down":
-		m.DeleteObjectFromDefaultLayer(x, y)
-		y = y + 5
+		deltaY = deltaY + 5
 		break
 	case buttonName == "d" || buttonName == "right":
-		m.DeleteObjectFromDefaultLayer(x, y)
-		x = x + 5
+		deltaX = deltaX + 5
 		break
 	default:
 		return
 	}
 
-	global_state.GetGlobalState().Set("test_obj_x", x)
-	global_state.GetGlobalState().Set("test_obj_y", y)
-	m.SetObjectToDefaultLayer(obj, x, y)
+	global_state.
+		GetGlobalState().
+		GetObject("test").(display.IDisplayObject).
+		DoMove(deltaX, deltaY)
 
 	display.GetInstance().ClearAll()
 }

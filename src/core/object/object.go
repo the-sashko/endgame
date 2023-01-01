@@ -26,6 +26,14 @@ func (object *coreObject) GetShape() map[uint32]bool {
 	return object.shape
 }
 
+func (object *coreObject) Destroy() {
+	debugMessage := fmt.Sprintf("Destroyed %s Object", object.GetName())
+	logger.LogDebug(debugMessage)
+
+	object.adapter.Destroy()
+	object.adapter = nil
+}
+
 func (object *coreObject) DoHandleCollision(
 	collidedObject interfaces.ICoreObject,
 ) {
@@ -90,7 +98,7 @@ func (object *coreObject) DoHandleMouseButtonClick(
 	object.adapter.DoHandleMouseButtonClick(mouseButton)
 }
 
-func (object *coreObject) DoHandleMove(deltaX uint16, deltaY uint16) {
+func (object *coreObject) DoHandleMove(deltaX int32, deltaY int32) {
 	debugMessage := fmt.Sprintf(
 		"Move %s Object: %d X %d Y",
 		object.GetName(),
